@@ -13,12 +13,7 @@ import java.io.Console;
 public class Reader {
     public static void main(String[] args) {
         Heap h = Heap.getHeap("/mnt/mem/persistent_pool", 2147483648L);
-
-        Console c = System.console();
-        if (c == null) {
-            System.out.println("No console.");
-            System.exit(1);
-        }
+        int length = 32*1024*1024;
 
         long rootAddr = h.getRoot();
         if (rootAddr == 0) {
@@ -26,11 +21,12 @@ public class Reader {
             System.exit(0);
         }
         MemoryBlock<Transactional> mr = h.memoryBlockFromAddress(Transactional.class, rootAddr);
-        byte[] bytes = new byte[mr.getInt(0)];
-        for (int i = 0; i < mr.getInt(0); i++) {
-            bytes[i] = mr.getByte(Integer.BYTES + i);
-        }
+        byte[] bytes = new byte[length];
+        mr.copyToArray(0, bytes, 0, length - 1);
 
-        System.out.println("Found string \"" + new String(bytes) + "\".");
+        for (int j=0; j<bytes.length; j++) {
+            System.out.format("%02X ", bytes[j]);
+        }
+        System.out.println();
     }
 }

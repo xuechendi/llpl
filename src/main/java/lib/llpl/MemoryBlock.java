@@ -58,7 +58,9 @@ public abstract class MemoryBlock<K extends MemoryBlock.Kind> {
     public void copyToArray(long srcOffset, byte[] dstArray, int dstOffset, int length) {
         checkValid();
         checkRange(srcOffset, length);
-        if (dstOffset < 0 || dstOffset + length >= dstArray.length) throw new IndexOutOfBoundsException("array index out of bounds.");
+
+        if (dstOffset < 0 || dstOffset + length > dstArray.length)
+            throw new IndexOutOfBoundsException("dstOffset: " + dstOffset + " + length: " + length + " > dstArray.length: " + dstArray.length);
         MemoryBlock.rawCopyToArray(directAddress() + baseOffset() + srcOffset, dstArray, dstOffset, length);
     }
 
@@ -210,7 +212,7 @@ public abstract class MemoryBlock<K extends MemoryBlock.Kind> {
         nativeFlush(address, size);
     }
 
-    long payloadAddress(long payloadOffset) {
+    public long payloadAddress(long payloadOffset) {
         return directAddress + baseOffset() + payloadOffset;
     }
 
