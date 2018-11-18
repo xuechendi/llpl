@@ -1,0 +1,4 @@
+cd target/classes
+jar cvf llpl.jar lib/llpl/*class
+mvn install:install-file -Dfile=llpl.jar -DgroupId=lib -DartifactId=llpl -Dversion=0.01 -Dpackaging=jar
+cp ../../target/cppbuild/*.so /usr/local/lib/
