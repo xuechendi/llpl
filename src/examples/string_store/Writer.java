@@ -14,7 +14,7 @@ import sun.misc.Unsafe;
 
 public class Writer {
     public static void main(String[] args) {
-        Heap h = Heap.getHeap("/mnt/mem/persistent_pool", 1024*1024*1024L);
+        Heap h = Heap.getHeap("/dev/dax0.0", 1024*1024*1024L);
 
         Console c = System.console();
         c.readLine("press Enter to start");

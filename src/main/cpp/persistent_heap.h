@@ -17,5 +17,5 @@
 #define CHAR_TYPE_OFFSET 1017
 TOID_DECLARE(char, CHAR_TYPE_OFFSET);
 
-PMEMobjpool *get_or_create_pool(const char* path, size_t size);
+PMEMobjpool *get_or_create_pool(const char* path);
 void register_allocation_classes(JNIEnv *env, PMEMobjpool* pool, jintArray alloc_classes);

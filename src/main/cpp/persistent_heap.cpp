@@ -7,12 +7,12 @@
 
 #include "persistent_heap.h"
 
-PMEMobjpool* get_or_create_pool(const char* path, size_t size)
+PMEMobjpool* get_or_create_pool(const char* path)
 {
     const char *pool_layout_name = "llpl_persistent_heap";
     PMEMobjpool *pool = pmemobj_open(path, pool_layout_name);
     if (pool == NULL) {
-        pool = pmemobj_create(path, pool_layout_name, size, S_IRUSR | S_IWUSR);
+        pool = pmemobj_create(path, pool_layout_name, 0, S_IRUSR | S_IWUSR);
     }
     if (pool == NULL) {
         printf("Failed to open pool %s\n", pmemobj_errormsg());

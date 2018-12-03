@@ -13,7 +13,7 @@ JNIEXPORT jlong JNICALL Java_lib_llpl_Heap_nativeOpenHeap
   (JNIEnv *env, jobject obj, jstring path, jlong size, jintArray alloc_classes)
 {
     const char* native_string = env->GetStringUTFChars(path, 0);
-    long poolHandle = (long)get_or_create_pool(native_string, (size_t)size);
+    long poolHandle = (long)get_or_create_pool(native_string);
     register_allocation_classes(env, (PMEMobjpool*)poolHandle, alloc_classes);
     env->ReleaseStringUTFChars(path, native_string);
 
